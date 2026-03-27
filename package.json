@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "parse-domain": "^8.2.2"
+  }
+}

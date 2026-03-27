@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  background: #f8f9fa;
+  color: #212529;
+}
+
+header {
+  padding: 16px 24px;
+  background: #fff;
+  border-bottom: 1px solid #dee2e6;
+}
+
+header h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+main {
+  padding: 24px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+}
+
+table {
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th, td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+th {
+  background: #f8f9fa;
+  font-weight: 600;
+  font-size: 12px;
+  color: #495057;
+  position: sticky;
+  top: 0;
+}
+
+td.domain-col, th.domain-col {
+  text-align: left;
+  font-family: monospace;
+  font-size: 12px;
+  min-width: 180px;
+  position: sticky;
+  left: 0;
+  background: #fff;
+  z-index: 1;
+}
+
+th.domain-col {
+  background: #f8f9fa;
+  z-index: 2;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+td:last-child, th:last-child {
+  border-right: none;
+}
+
+td.cell {
+  font-size: 16px;
+  cursor: default;
+}
+
+td.cell.passed  { background: #f0fff4; }
+td.cell.unknown { background: #fffbf0; }
+td.cell.failed  { background: #fff5f5; }

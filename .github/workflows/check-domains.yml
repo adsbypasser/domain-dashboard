@@ -1,0 +1,41 @@
+name: Domain Dashboard
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # daily 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/checkout@v6
+        with:
+          repository: adsbypasser/adsbypasser
+          path: adsbypasser
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run domain checks
+        run: ADSBYPASSER_PATH=${{ github.workspace }}/adsbypasser node ci/check-domains.js --output /tmp/results.json
+
+      - name: Update results data
+        run: node ci/update-results.js /tmp/results.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _data/results.json
+          git diff --cached --quiet || git commit -m "chore: update domain check results $(date +%Y-%m-%d)"
+          git push

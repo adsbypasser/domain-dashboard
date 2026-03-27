@@ -1,0 +1,8 @@
+title: Domain Dashboard
+description: Adsbypasser domain health over time
+plugins: []
+exclude:
+  - ci/
+  - node_modules/
+  - package.json
+  - package-lock.json
