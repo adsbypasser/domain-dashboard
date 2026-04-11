@@ -26,11 +26,15 @@
  */
 
 import { extractDomainsFromJSDoc } from "./lib/jsdoc.js";
+import { execFile } from "child_process";
+import { promisify } from "util";
 import dns from "dns/promises";
 import fs from "fs/promises";
 import http from "http";
 import https from "https";
 import { URL } from "url";
+
+const execFileAsync = promisify(execFile);
 
 /* ------------------------ CONFIGURATION ------------------------ */
 
@@ -314,6 +318,116 @@ async function fetchUrl(domain, url, timeoutMs = REQUEST_TIMEOUT_MS) {
 }
 
 /**
+ * Fetch a URL using curl-impersonate to bypass TLS fingerprint-based bot detection.
+ * curl-impersonate mimics the full TLS handshake of real browsers, defeating
+ * Cloudflare and similar services that block non-browser TLS fingerprints.
+ *
+ * @param {string} domain - The domain being checked (for logging)
+ * @param {string} url - URL to fetch
+ * @param {number} timeoutMs - Timeout in milliseconds
+ * @returns {Promise<Object|null>} Response object, low-level status object, or null if binary unavailable
+ */
+async function fetchUrlWithCurlImpersonate(domain, url, timeoutMs = REQUEST_TIMEOUT_MS) {
+  debugLog(domain, "Retrying with curl-impersonate:", url);
+  const timeoutSec = Math.ceil(timeoutMs / 1000);
+
+  try {
+    const { stdout } = await execFileAsync(
+      "curl_chrome116",
+      ["-si", "-L", "--max-redirs", "5", "--max-time", String(timeoutSec), url],
+      { maxBuffer: 2 * 1024 * 1024 },
+    );
+
+    // stdout contains one or more HTTP response blocks separated by \r\n\r\n
+    // With -L, intermediate redirect responses appear before the final one.
+    // Take the last two segments: final headers block + body.
+    const parts = stdout.split("\r\n\r\n");
+    if (parts.length < 2) {
+      return { status: "UNREACHABLE" };
+    }
+
+    const rawHeaders = parts[parts.length - 2];
+    const body = parts[parts.length - 1].substring(0, 8192);
+
+    const lines = rawHeaders.split("\r\n");
+    const statusMatch = lines[0].match(/^HTTP\/\S+\s+(\d+)/);
+    if (!statusMatch) {
+      return { status: "UNREACHABLE" };
+    }
+    const statusCode = parseInt(statusMatch[1], 10);
+
+    const headers = {};
+    for (const line of lines.slice(1)) {
+      const colonIdx = line.indexOf(":");
+      if (colonIdx > 0) {
+        headers[line.substring(0, colonIdx).trim().toLowerCase()] =
+          line.substring(colonIdx + 1).trim();
+      }
+    }
+
+    debugLog(domain, "curl-impersonate response:", statusCode);
+    return { statusCode, headers, body };
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      debugLog(domain, "curl-impersonate binary not found, skipping retry");
+      return null;
+    }
+    debugLog(domain, "curl-impersonate error:", err.message);
+    return { status: "UNREACHABLE" };
+  }
+}
+
+/**
+ * Classify a final (non-redirect) HTTP response into a domain status string.
+ * Used to evaluate curl-impersonate retry results using the same rules as the
+ * main check loop, without needing to re-enter the redirect-following logic.
+ *
+ * @param {string} domain - Domain being checked (for logging)
+ * @param {Object} response - Response object from fetchUrlWithCurlImpersonate
+ * @returns {string} Domain status string
+ */
+function classifyFinalResponse(domain, { status, statusCode, headers = {}, body = "" }) {
+  if (status) {
+    return status;
+  }
+
+  if (statusCode >= 500) {
+    const code = statusCode.toString();
+    if (statusCode <= 526 && CLOUDFLARE_ERROR_DESCRIPTIONS[code]) {
+      if (code === "525" || code === "526") {
+        return handleSSLError(
+          domain,
+          `CLOUDFLARE_${code}`,
+          CLOUDFLARE_ERROR_DESCRIPTIONS[code],
+        ).status;
+      }
+      return `CLOUDFLARE_${code}`;
+    }
+    return `SERVER_ERROR_${statusCode}`;
+  }
+
+  if (statusCode >= 400) {
+    return `CLIENT_ERROR_${statusCode}`;
+  }
+
+  if (body) {
+    if (
+      body.includes("Cloudflare Ray ID") ||
+      CONTENT_PATTERNS.WAF.some((p) => body.includes(p))
+    ) {
+      return "PROTECTED";
+    }
+    const emptyCheck = isEmptyOrJsOnly(domain, body);
+    if (emptyCheck) return emptyCheck;
+    if (CONTENT_PATTERNS.PLACEHOLDER.some((p) => body.includes(p))) {
+      return "PLACEHOLDER";
+    }
+  }
+
+  return "VALID";
+}
+
+/**
  * Determine if a page is blank or only contains JavaScript
  * This helps identify pages that don't provide meaningful content to users
  * @param {string} domain - The domain being checked (for logging)
@@ -501,6 +615,10 @@ async function checkDomainStatus(domain) {
               domain,
               "403 appears to be from Cloudflare bot detection",
             );
+            const curlResult = await fetchUrlWithCurlImpersonate(domain, url);
+            if (curlResult !== null) {
+              return classifyFinalResponse(domain, curlResult);
+            }
             return "CLOUDFLARE_BOT_PROTECTION";
           }
 
@@ -514,6 +632,10 @@ async function checkDomainStatus(domain) {
               domain,
               "403 appears to be from DDoS-Guard protection",
             );
+            const curlResult = await fetchUrlWithCurlImpersonate(domain, url);
+            if (curlResult !== null) {
+              return classifyFinalResponse(domain, curlResult);
+            }
             return "DDOS_GUARD_PROTECTION";
           }
         }
