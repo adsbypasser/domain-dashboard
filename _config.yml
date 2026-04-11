@@ -1,4 +1,5 @@
 title: Domain Dashboard
+baseurl: /domain-dashboard
 description: Adsbypasser domain health over time
 plugins: []
 exclude:
