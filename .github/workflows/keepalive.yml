@@ -1,0 +1,18 @@
+name: Keepalive
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # every month (well before 60d inactivity deadline)
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-enable check-domains workflow
+        run: gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/check-domains.yml/enable"
+        env:
+          GH_TOKEN: ${{ github.token }}
