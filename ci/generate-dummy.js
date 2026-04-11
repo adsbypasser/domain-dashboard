@@ -36,6 +36,12 @@ const DOMAINS = [
 const STATUSES = ["passed", "unknown", "failed"];
 const WEIGHTS = [0.70, 0.15, 0.15]; // 70% passed, 15% unknown, 15% failed
 
+const REASON_MAP = {
+  passed: ["VALID", "PROTOCOL_FLIP_LOOP"],
+  unknown: ["PROTECTED", "JS_ONLY", "CLOUDFLARE_BOT_PROTECTION", "DDOS_GUARD_PROTECTION", "PLACEHOLDER"],
+  failed: ["EXPIRED", "TIMEOUT"],
+};
+
 function weightedRandom() {
   const r = Math.random();
   let cumulative = 0;
@@ -44,6 +50,11 @@ function weightedRandom() {
     if (r < cumulative) return STATUSES[i];
   }
   return STATUSES[STATUSES.length - 1];
+}
+
+function pickReason(status) {
+  const reasons = REASON_MAP[status];
+  return reasons[Math.floor(Math.random() * reasons.length)];
 }
 
 function weeksAgo(n) {
@@ -63,7 +74,8 @@ const runs = {};
 for (const date of dates) {
   runs[date] = {};
   for (const domain of DOMAINS) {
-    runs[date][domain] = weightedRandom();
+    const status = weightedRandom();
+    runs[date][domain] = { status, reason: pickReason(status) };
   }
 }
 

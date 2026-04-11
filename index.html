@@ -20,8 +20,10 @@ title: Domain Status
         <td class="domain-col">{{ domain }}</td>
         {% for date in site.data.results.dates %}
         {% assign run = site.data.results.runs[date] %}
-        {% assign st = run[domain] %}
-        <td class="cell {{ st }}" title="{{ domain }} — {{ date }}: {{ st | default: 'no data' }}">{% if st == "passed" %}🟢{% elsif st == "unknown" %}🟡{% elsif st == "failed" %}🔴{% else %}⚫{% endif %}</td>
+        {% assign entry = run[domain] %}
+        {% assign st = entry.status %}
+        {% assign reason = entry.reason %}
+        <td class="cell {{ st }}" title="{{ domain }} — {{ date }}: {{ st | default: 'no data' }}{% if reason %} ({{ reason }}){% endif %}">{% if st == "passed" %}🟢{% elsif st == "unknown" %}🟡{% elsif st == "failed" %}🔴{% else %}⚫{% endif %}</td>
         {% endfor %}
       </tr>
       {% endfor %}

@@ -26,17 +26,8 @@ const MAX_DATES = 52;
 function mapStatus(status) {
   if (!status) return "failed";
   if (status === "VALID" || status === "PROTOCOL_FLIP_LOOP") return "passed";
-  const unknownStatuses = [
-    "PROTECTED",
-    "CLOUDFLARE_BOT_PROTECTION",
-    "DDOS_GUARD_PROTECTION",
-    "JS_ONLY",
-    "PLACEHOLDER",
-    "EMPTY_PAGE",
-    "INVALID_REDIRECT",
-  ];
-  if (unknownStatuses.includes(status)) return "unknown";
-  return "failed";
+  if (status === "EXPIRED" || status === "TIMEOUT") return "failed";
+  return "unknown";
 }
 
 async function main() {
@@ -63,7 +54,7 @@ async function main() {
   // Build the run entry for today
   const runEntry = {};
   for (const { domain, status } of raw) {
-    runEntry[domain] = mapStatus(status);
+    runEntry[domain] = { status: mapStatus(status), reason: status ?? null };
   }
 
   // Merge domains (union, sorted)
