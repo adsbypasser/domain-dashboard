@@ -17,8 +17,8 @@
  *  - Placeholder/parked page detection
  *  - Cloudflare/WAF/5xx error detection
  *  - Blank or JavaScript-only page detection
- *  - Sequential domain checking to avoid overwhelming servers
- *  - Random delays between requests to reduce bot detection
+ *  - Parallel domain checking with configurable concurrency (default: 5)
+ *  - Staggered starts within each wave to spread DNS queries
  *  - Referer header to appear more like legitimate traffic
  *
  * Set ADSBYPASSER_PATH env var to point at an adsbypasser checkout.
@@ -773,6 +773,23 @@ async function checkDomain(domain) {
   };
 }
 
+/* ------------------------ CONCURRENCY HELPER ------------------------ */
+
+async function pooledMap(tasks, concurrency) {
+  const results = new Array(tasks.length);
+  let next = 0;
+  async function worker() {
+    while (next < tasks.length) {
+      const index = next++;
+      results[index] = await tasks[index]();
+    }
+  }
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, tasks.length) }, worker),
+  );
+  return results;
+}
+
 /* ------------------------ MAIN EXECUTION ------------------------ */
 
 /**
@@ -816,6 +833,19 @@ async function main() {
     args.splice(outputIndex, 2);
   }
 
+  // Parse --concurrency <n> flag (default: 5)
+  const concurrencyIndex = args.indexOf("--concurrency");
+  let concurrencyLimit = 5;
+  if (concurrencyIndex !== -1) {
+    const parsed = parseInt(args[concurrencyIndex + 1], 10);
+    if (!Number.isFinite(parsed) || parsed < 1) {
+      console.error("--concurrency must be a positive integer");
+      process.exit(1);
+    }
+    concurrencyLimit = parsed;
+    args.splice(concurrencyIndex, 2);
+  }
+
   // Check for --help flag
   if (args.includes("--help") || args.includes("-h")) {
     console.log("Usage: node ci/check-domains.js [options] [categories...]");
@@ -823,6 +853,7 @@ async function main() {
     console.log("Options:");
     console.log("  --verbose          Enable verbose output");
     console.log("  --output <file>    Write results as JSON to <file>");
+    console.log("  --concurrency <n>  Max parallel domain checks (default: 5)");
     console.log("  --help, -h         Show this help message");
     console.log("");
     console.log("Environment:");
@@ -883,73 +914,67 @@ async function main() {
       console.log("Checking:");
     }
 
-    const results = [];
+    const results = await pooledMap(
+      uniqueDomains.map((domain, domainIndex) => async () => {
+        // Stagger starts within the first wave to spread DNS queries
+        const staggerMs = (domainIndex % concurrencyLimit) * 100;
+        await new Promise((r) => setTimeout(r, staggerMs));
 
-    // Sequential checking to avoid overwhelming servers
-    // Processing domains one at a time prevents rate limiting issues
-    // Added random delays between requests to reduce bot detection
-    for (const domain of uniqueDomains) {
-      // Add random delay (300-1000ms) to help reduce Cloudflare bot detection
-      const delay = 300 + Math.random() * 700;
-      await new Promise((r) => setTimeout(r, delay));
-
-      // In non-verbose mode, just show the domain being checked
-      if (!GLOBAL_DEBUG) {
-        console.log(`- ${domain}`);
-      } else {
-        // In verbose mode, show detailed information as before
-        console.log(`\nChecking ${domain}...`);
-      }
-
-      try {
-        const result = await checkDomain(domain);
-        results.push(result);
-        const icon = STATUS_ICONS[result.status] || "❓";
-
-        // Only show detailed status in verbose mode
         if (GLOBAL_DEBUG) {
-          // For Cloudflare errors, show the description
-          if (result.status.startsWith("CLOUDFLARE_")) {
-            const errorCode = result.status.split("_")[1];
-            // Check if we have a description for this Cloudflare error code
-            if (CLOUDFLARE_ERROR_DESCRIPTIONS[errorCode]) {
-              console.log(
-                `${icon} ${result.status} - ${CLOUDFLARE_ERROR_DESCRIPTIONS[errorCode]}`,
-              );
-            } else {
-              console.log(`${icon} ${result.status}`);
-            }
-          } else if (result.status === "SSL_ISSUE") {
-            // For SSL issues, show the error details if available
-            if (result.error && result.message) {
-              console.log(
-                `${icon} ${result.status} - ${result.error}: ${result.message}`,
-              );
-            } else {
-              console.log(`${icon} ${result.status}`);
-            }
-          } else if (result.status === "PROTOCOL_FLIP_LOOP") {
-            console.log(
-              `${icon} ${result.status} - Site has HTTP/HTTPS protocol flip but is likely accessible`,
-            );
-          } else if (result.status === "DDOS_GUARD_PROTECTION") {
-            console.log(
-              `${icon} ${result.status} - Site is protected by DDoS-Guard and may be accessible in browsers`,
-            );
+          console.log(`\nChecking ${domain}...`);
+        }
+
+        try {
+          const result = await checkDomain(domain);
+          const icon = STATUS_ICONS[result.status] || "❓";
+
+          if (!GLOBAL_DEBUG) {
+            // Print domain and result atomically on one line to avoid interleaving
+            console.log(`- ${domain} ${icon}`);
           } else {
-            console.log(`${icon} ${result.status}`);
+            if (result.status.startsWith("CLOUDFLARE_")) {
+              const errorCode = result.status.split("_")[1];
+              if (CLOUDFLARE_ERROR_DESCRIPTIONS[errorCode]) {
+                console.log(
+                  `${icon} ${result.status} - ${CLOUDFLARE_ERROR_DESCRIPTIONS[errorCode]}`,
+                );
+              } else {
+                console.log(`${icon} ${result.status}`);
+              }
+            } else if (result.status === "SSL_ISSUE") {
+              if (result.error && result.message) {
+                console.log(
+                  `${icon} ${result.status} - ${result.error}: ${result.message}`,
+                );
+              } else {
+                console.log(`${icon} ${result.status}`);
+              }
+            } else if (result.status === "PROTOCOL_FLIP_LOOP") {
+              console.log(
+                `${icon} ${result.status} - Site has HTTP/HTTPS protocol flip but is likely accessible`,
+              );
+            } else if (result.status === "DDOS_GUARD_PROTECTION") {
+              console.log(
+                `${icon} ${result.status} - Site is protected by DDoS-Guard and may be accessible in browsers`,
+              );
+            } else {
+              console.log(`${icon} ${result.status}`);
+            }
           }
+
+          return result;
+        } catch (error) {
+          if (GLOBAL_DEBUG) {
+            console.error(`Error checking domain ${domain}:`, error.message);
+            console.log(`❌ CHECK_FAILED`);
+          } else {
+            console.log(`- ${domain} ❌`);
+          }
+          return { domain, status: "CHECK_FAILED" };
         }
-      } catch (error) {
-        if (GLOBAL_DEBUG) {
-          console.error(`Error checking domain ${domain}:`, error.message);
-        }
-        results.push({ domain, status: "CHECK_FAILED" });
-        if (GLOBAL_DEBUG) {
-          console.log(`❌ CHECK_FAILED`);
-        }
-      }
-    }
+      }),
+      concurrencyLimit,
+    );
 
     // Write JSON output file if --output was specified
     if (outputPath) {
