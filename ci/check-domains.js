@@ -50,13 +50,40 @@ const MAX_REDIRECTS = 5;
 const REQUEST_TIMEOUT_MS = 60000;
 
 /**
- * Browser-like headers to avoid bot detection
- * Mimics Firefox browser to appear as a legitimate user agent
- * Includes Referer header to appear more like legitimate traffic
+ * Pool of browser profiles for curl-impersonate.
+ * Each entry pairs the binary name with its matching User-Agent so the TLS
+ * fingerprint and UA are always consistent. One profile is chosen randomly at
+ * startup and reused for the entire run.
+ */
+const BROWSER_PROFILES = [
+  {
+    binary: "curl_chrome116",
+    userAgent:
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+  },
+  {
+    binary: "curl_chrome110",
+    userAgent:
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+  },
+  {
+    binary: "curl_ff117",
+    userAgent:
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:117.0) Gecko/20100101 Firefox/117.0",
+  },
+];
+
+const BROWSER_PROFILE =
+  BROWSER_PROFILES[Math.floor(Math.random() * BROWSER_PROFILES.length)];
+
+/**
+ * Browser-like headers to avoid bot detection.
+ * The User-Agent is aligned with the selected BROWSER_PROFILE so that
+ * primary fetch requests and curl-impersonate retries present the same identity.
+ * Includes Referer header to appear more like legitimate traffic.
  */
 const DEFAULT_HEADERS = {
-  "User-Agent":
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0",
+  "User-Agent": BROWSER_PROFILE.userAgent,
   Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
   "Accept-Language": "en-US,en;q=0.5",
   "Accept-Encoding": "gzip, deflate, br, zstd",
@@ -333,7 +360,7 @@ async function fetchUrlWithCurlImpersonate(domain, url, timeoutMs = REQUEST_TIME
 
   try {
     const { stdout } = await execFileAsync(
-      "curl_chrome116",
+      BROWSER_PROFILE.binary,
       ["-si", "-L", "--max-redirs", "5", "--max-time", String(timeoutSec), url],
       { maxBuffer: 2 * 1024 * 1024 },
     );
