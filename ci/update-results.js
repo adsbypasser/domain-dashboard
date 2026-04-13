@@ -57,9 +57,8 @@ async function main() {
     runEntry[domain] = { status: mapStatus(status), reason: status ?? null };
   }
 
-  // Merge domains (union, sorted)
-  const domainSet = new Set([...existing.domains, ...Object.keys(runEntry)]);
-  const domains = Array.from(domainSet).sort();
+  // Use only current run's domains (removed domains are dropped automatically)
+  const domains = Object.keys(runEntry).sort();
 
   // Prepend today's date (skip if it already exists to avoid duplicates)
   let dates = existing.dates.filter((d) => d !== today);
