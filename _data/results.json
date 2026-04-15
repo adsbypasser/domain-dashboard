@@ -1,5 +1,6 @@
 {
   "dates": [
+    "2026-04-15",
     "2026-04-14",
     "2026-04-13",
     "2026-04-12",
@@ -3139,6 +3140,844 @@
       "imgdawgknuttz.com": {
         "status": "failed",
         "reason": "EXPIRED"
+      },
+      "imgdrive.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgfira.cc": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgflip.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgfrost.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imghit.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgo.info": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgouhmde.sbs": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgouskel.sbs": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgpulse.top": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgpv.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgtaxi.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgtraffic.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "imgwallet.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgxxt.in": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imx.to": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "indishare.org": {
+        "status": "unknown",
+        "reason": "CLOUDFLARE_523"
+      },
+      "infidrive.net": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "jav-load.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "javball.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "javbee.co": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "javlibrary.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "javring.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "javsunday.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "javtele.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "javtenshi.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "katfile.vip": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "keeplinks.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "keptarolo.hu": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "kimochi.info": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "kin8-av.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "kin8-jav.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "kingofshrink.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "kr-av.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "linegee.net": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "link.turkdown.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "linkpoi.me": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "linkshrink.net": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "lnk2.cc": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "loaninsurehub.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "lolinez.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "lookmyimg.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "mangalist.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "mirrored.to": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "mitly.us": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "multiup.io": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "network-loop.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "nmac.to": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "noelshack.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "oke.io": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "oko.sh": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "old-young.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "orangepix.is": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "otomi-games.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "ouo.io": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "ouo.press": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "ovabee.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "pahe.plus": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "payskip.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "pic-upload.de": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "picforall.ru": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "picstate.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "pig69.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "pilot007.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "pimpandhost.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "pixhost.to": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "pixxxels.cc": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "porn-pig.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "porn4f.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "porn4f.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "postimg.cc": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "preview.rlu.ru": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "prnt.sc": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "rintor.space": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "ryuugames.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "s-porn.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "sfile.mobi": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "shentai-anime.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "short.am": {
+        "status": "failed",
+        "reason": "TIMEOUT"
+      },
+      "shortmoz.link": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "shotcan.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "similarsites.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "spaste.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "srt.am": {
+        "status": "failed",
+        "reason": "TIMEOUT"
+      },
+      "stfly.me": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "stfly.xyz": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "supercheats.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "sweetie-fox.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "swzz.xyz": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "thefileslocker.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "thinfi.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "tmearn.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "trafficimage.club": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "tribuntekno.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "turboimagehost.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "tutwuri.id": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "uncenav.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "uploadhaven.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "uploadrar.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "urlcash.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "urlgalleries.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "usersdrive.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "vipr.im": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "xcamcovid.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "xxpics.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "xxxwebdlxxx.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "xxxwebdlxxx.top": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "zegtrends.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      }
+    },
+    "2026-04-15": {
+      "14xpics.space": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "1ink.cc": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "1link.club": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "1minx.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "2i.cz": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "2i.sk": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "3minx.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "3xplanet.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "3xplanet.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "4fuk.me": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "555fap.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "a2zapk.io": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "adfoc.us": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "adsafelink.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "adshnk.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "ai18.pics": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "ak.sv": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "anchoreth.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "anime-jav.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "apunkasoftware.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "aylink.co": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "bayimg.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "bcvc.ink": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "beeimg.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "binbox.io": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "blackwidof.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "blogmado.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "boost.ink": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "casimages.com": {
+        "status": "failed",
+        "reason": "TIMEOUT"
+      },
+      "chinese-pics.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "chinese-pics.vip": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "clik.pw": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "clk.sh": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cloudgallery.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cn-av.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cnpics.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cnxx.me": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cnxxx.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cosplay18.pics": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cosplaytele.vip": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cpmlink.net": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "cpmlink.pro": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "croea.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cubeupload.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "cutpaid.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "depic.me": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "directupload.eu": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "dpic.me": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "dz4link.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "exe-links.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "exeo.app": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "fappic.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "fastpic.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "fc-lc.com": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "fc-lc.xyz": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "fc2ppv.me": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "fc2ppv.stream": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "fikfok.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "fir3.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "fotosik.pl": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "get-click2.blogspot.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "gitlink.pro": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "gofile.download": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "goo.st": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "gplinks.co": {
+        "status": "unknown",
+        "reason": "UNREACHABLE"
+      },
+      "hen-tay.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hentai-manga.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hentai-sub.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hentai4f.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hentaicovid.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hentaicovid.org": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hentaicovid.vip": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hentaipig.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hentaixnx.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "hostpic.org": {
+        "status": "unknown",
+        "reason": "SSL_ISSUE"
+      },
+      "ibb.co": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "icutlink.com": {
+        "status": "passed",
+        "reason": "PROTOCOL_FLIP_LOOP"
+      },
+      "idol69.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "im.ge": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagebam.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imageban.ru": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagehaha.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagehost.at": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagenetz.de": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagenpic.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imageshack.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imageshimage.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagetwist.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagetwist.netlify.app": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imageup.ru": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagevenue.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imagexport.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "img.javstore.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "img.trafficimage.club": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgadult.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgair.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgbase.ru": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgbb.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgblaze.net": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgbox.com": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgcloud.pw": {
+        "status": "passed",
+        "reason": "VALID"
+      },
+      "imgdawgknuttz.com": {
+        "status": "passed",
+        "reason": "VALID"
       },
       "imgdrive.net": {
         "status": "passed",
