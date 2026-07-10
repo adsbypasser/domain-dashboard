@@ -16,7 +16,7 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_FILE = path.resolve(__dirname, "../_data/results.json");
-const MAX_DATES = 52;
+const MAX_DATES = 21;
 
 /**
  * Map a raw check-domains status string to passed/unknown/failed.
