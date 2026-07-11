@@ -166,17 +166,22 @@ export const CONTENT_PATTERNS = {
  * Only includes error codes that are actually handled in the code
  */
 export const CLOUDFLARE_ERROR_DESCRIPTIONS = {
+  // Standard HTTP errors commonly served by Cloudflare
   500: "Internal Server Error - Cloudflare could not retrieve the web page",
   502: "Bad Gateway - Cloudflare could not contact the origin server",
   503: "Service Temporarily Unavailable - The server is temporarily unable to handle the request",
   504: "Gateway Timeout - Cloudflare timed out contacting the origin server",
-  520: "Web Server Returns an Unknown Error - The origin server returned an empty, unknown, or unexplained response",
+
+  // Cloudflare-specific
+  520: "Web Server Returns an Unknown Error - The origin server returned an unexpected response",
   521: "Web Server Is Down - The origin server refused the connection",
-  522: "Connection Timed Out - Cloudflare could not negotiate a TCP handshake with the origin server",
+  522: "Connection Timed Out - Cloudflare could not complete a TCP handshake with the origin server",
   523: "Origin Is Unreachable - Cloudflare could not reach the origin server",
-  524: "A Timeout Occurred - Cloudflare was able to complete a TCP connection but timed out waiting for an HTTP response",
+  524: "A Timeout Occurred - Cloudflare connected to the origin but timed out waiting for a response",
   525: "SSL Handshake Failed - Cloudflare could not negotiate an SSL/TLS handshake with the origin server",
-  526: "Invalid SSL Certificate - Cloudflare could not validate the SSL certificate of the origin server",
+  526: "Invalid SSL Certificate - Cloudflare could not validate the origin server's SSL certificate",
+  527: "Railgun Error - An error occurred with the Railgun connection",
+  530: "Origin DNS Error / Cloudflare Error - The requested host encountered a Cloudflare-related error",
 };
 
 /**
@@ -211,4 +216,6 @@ export const STATUS_ICONS = {
   CLOUDFLARE_524: "☁️524",
   CLOUDFLARE_525: "☁️525",
   CLOUDFLARE_526: "☁️526",
+  CLOUDFLARE_527: "☁️527",
+  CLOUDFLARE_530: "☁️530",
 };
