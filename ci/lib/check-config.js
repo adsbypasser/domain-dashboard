@@ -86,9 +86,78 @@ export const CONTENT_PATTERNS = {
    * be accessible to automated tools without proper handling
    */
   WAF: [
+    // Cloudflare
     "Attention Required! | Cloudflare",
     "Checking your browser before accessing",
-    "DDOS protection by",
+    "Just a moment...",
+    "Verify you are human",
+    "Please enable JavaScript and cookies to continue",
+    "Ray ID:",
+    "cf-browser-verification",
+    "cf-challenge",
+    "challenge-platform",
+  
+    // Generic DDoS / bot protection
+    "DDoS protection by",
+    "Protected by",
+    "Bot protection",
+    "Automated requests",
+    "Security check",
+    "Security verification",
+    "Please wait while we verify",
+    "Verifying your browser",
+    "Human verification",
+    "Access denied",
+  
+    // Imperva
+    "Incapsula incident ID",
+    "Request unsuccessful",
+    "The requested URL was rejected",
+    "_Incapsula_Resource",
+  
+    // Akamai
+    "Reference #",
+    "Access Denied",
+    "AkamaiGHost",
+  
+    // AWS WAF
+    "Request blocked",
+    "Request blocked by AWS WAF",
+  
+    // DataDome
+    "datadome",
+    "Please enable JS",
+    "You have been blocked",
+  
+    // F5
+    "The requested URL was rejected. Please consult with your administrator",
+  
+    // Sucuri
+    "Access Denied - Sucuri Website Firewall",
+    "Sucuri Website Firewall",
+  
+    // StackPath
+    "Access denied |",
+    "StackPath",
+  
+    // PerimeterX / HUMAN
+    "PerimeterX",
+    "Press & Hold",
+    "px-captcha",
+  
+    // Fastly
+    "Fastly error",
+    "Fastly",
+  
+    // Radware
+    "Radware",
+    "Cloud Web Application Firewall",
+  
+    // Barracuda
+    "Barracuda Web Application Firewall",
+  
+    // Citrix
+    "Citrix ADC",
   ],
 };
 
