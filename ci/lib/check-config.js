@@ -89,6 +89,7 @@ export const CONTENT_PATTERNS = {
     // Cloudflare
     "Attention Required! | Cloudflare",
     "Checking your browser before accessing",
+    "Performing security verification",
     "Just a moment...",
     "Verify you are human",
     "Please enable JavaScript and cookies to continue",
