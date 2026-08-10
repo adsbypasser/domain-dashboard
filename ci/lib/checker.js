@@ -245,6 +245,8 @@ async function checkDomainStatus(domain, debugLog) {
           "524",
           "525",
           "526",
+          "527",
+          "530",
         ]) {
           // Look for Cloudflare error messages in the response body
           if (body.includes(`Error ${code}`)) {
