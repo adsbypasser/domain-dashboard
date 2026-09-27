@@ -27,6 +27,8 @@ main {
 }
 
 .table-wrap {
+  width: fit-content;
+  max-width: 100%;
   overflow-x: auto;
   background: #fff;
   border: 1px solid #dee2e6;
@@ -51,8 +53,17 @@ th {
   font-weight: 600;
   font-size: 12px;
   color: #495057;
+}
+
+thead {
   position: sticky;
   top: 0;
+  z-index: 3;
+}
+
+th.group {
+  border-right-color: #dee2e6;
+  border-bottom-color: #dee2e6;
 }
 
 td.domain-col, th.domain-col {
@@ -67,6 +78,7 @@ td.domain-col, th.domain-col {
 }
 
 th.domain-col {
+  vertical-align: bottom;
   background: #f8f9fa;
   z-index: 2;
 }

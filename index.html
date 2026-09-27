@@ -8,9 +8,28 @@ title: Domain Status
 <div class="table-wrap">
   <table>
     <thead>
+      {% assign dates = site.data.results.dates %}
       <tr>
-        <th class="domain-col">Domain</th>
-        {% for date in site.data.results.dates %}<th>{{ date }}</th>
+        <th class="domain-col" rowspan="3">Domain</th>
+        {% assign span = 0 %}
+        {% for date in dates %}
+        {% assign span = span | plus: 1 %}
+        {% assign year = date | slice: 0, 4 %}
+        {% assign next_year = dates[forloop.index] | slice: 0, 4 %}
+        {% if forloop.last or next_year != year %}<th class="group" colspan="{{ span }}">{{ year }}</th>{% assign span = 0 %}{% endif %}
+        {% endfor %}
+      </tr>
+      <tr>
+        {% assign span = 0 %}
+        {% for date in dates %}
+        {% assign span = span | plus: 1 %}
+        {% assign month = date | slice: 0, 7 %}
+        {% assign next_month = dates[forloop.index] | slice: 0, 7 %}
+        {% if forloop.last or next_month != month %}<th class="group" colspan="{{ span }}">{{ date | slice: 5, 2 }}</th>{% assign span = 0 %}{% endif %}
+        {% endfor %}
+      </tr>
+      <tr>
+        {% for date in dates %}<th title="{{ date }}">{{ date | slice: 8, 2 }}</th>
         {% endfor %}
       </tr>
     </thead>

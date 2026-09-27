@@ -5,7 +5,10 @@
  * Seeds _data/results.json with fake historical data for local Jekyll testing.
  * Does not require an adsbypasser checkout.
  *
- * Usage: node ci/generate-dummy.js
+ * Usage: node ci/generate-dummy.js [days]
+ *
+ * days: number of daily runs to generate, newest first (default: 400, so the
+ * header spans more than one year and several months).
  */
 
 import fs from "fs/promises";
@@ -57,17 +60,21 @@ function pickReason(status) {
   return reasons[Math.floor(Math.random() * reasons.length)];
 }
 
-function weeksAgo(n) {
+function daysAgo(n) {
   const d = new Date();
-  d.setDate(d.getDate() - n * 7);
+  d.setUTCDate(d.getUTCDate() - n);
   return d.toISOString().slice(0, 10);
 }
 
-const NUM_WEEKS = 8;
+const NUM_DAYS = Number.parseInt(process.argv[2] ?? "400", 10);
+if (!Number.isInteger(NUM_DAYS) || NUM_DAYS < 1) {
+  console.error("days must be a positive integer");
+  process.exit(1);
+}
 
 const dates = [];
-for (let i = 0; i < NUM_WEEKS; i++) {
-  dates.push(weeksAgo(i));
+for (let i = 0; i < NUM_DAYS; i++) {
+  dates.push(daysAgo(i));
 }
 
 const runs = {};
