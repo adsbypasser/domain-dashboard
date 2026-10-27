@@ -4,6 +4,7 @@
  */
 
 import dns from "dns/promises";
+import { extractRootDomain } from "./domain.js";
 import { URL } from "url";
 import { MAX_REDIRECTS, CLOUDFLARE_ERROR_DESCRIPTIONS, CONTENT_PATTERNS } from "./check-config.js";
 import {
@@ -62,7 +63,7 @@ async function isDomainResolvable(domain, debugLog) {
  * Tests both HTTPS and HTTP protocols with comprehensive error detection
  * @param {string} domain - Domain to check
  * @param {Function} debugLog - Debug logging function
- * @returns {Promise<string>} Status result
+ * @returns {Promise<string|Object>} Status result, including cross-domain redirect metadata
  */
 async function checkDomainStatus(domain, debugLog) {
   const protocols = ["https", "http"];
@@ -105,6 +106,18 @@ async function checkDomainStatus(domain, debugLog) {
       if (statusCode >= 300 && statusCode < 400 && headers.location) {
         try {
           const redirectUrl = new URL(headers.location, url);
+          if (!["http:", "https:"].includes(redirectUrl.protocol)) {
+            return "INVALID_REDIRECT";
+          }
+          const sourceDomain = extractRootDomain(domain) ?? domain;
+          const targetDomain = extractRootDomain(redirectUrl.hostname) ?? redirectUrl.hostname;
+          if (targetDomain !== sourceDomain) {
+            return {
+              status: "REDIRECT",
+              redirectDomain: redirectUrl.hostname,
+              redirectUrl: redirectUrl.toString(),
+            };
+          }
 
           // Special handling for protocol flips (HTTP ↔ HTTPS)
           // Some sites legitimately flip between protocols for the same domain
@@ -319,12 +332,14 @@ export async function checkDomain(domain, debugLog = () => {}) {
     return { domain, status: "EXPIRED", resolvable: false, accessible: false };
   }
 
-  const status = await checkDomainStatus(domain, debugLog);
+  const result = await checkDomainStatus(domain, debugLog);
+  const { status, ...metadata } = typeof result === "string" ? { status: result } : result;
   // Define which statuses are considered accessible
   const accessibleStatuses = ["VALID", "PROTOCOL_FLIP_LOOP"];
   return {
     domain,
     status,
+    ...metadata,
     resolvable: true,
     accessible: accessibleStatuses.includes(status),
   };

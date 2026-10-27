@@ -42,7 +42,7 @@ title: Domain Status
         {% assign entry = run[domain] %}
         {% assign st = entry.status %}
         {% assign reason = entry.reason %}
-        <td class="cell {{ st }}" title="{{ domain }} — {{ date }}: {{ st | default: 'no data' }}{% if reason %} ({{ reason }}){% endif %}">{% if st == "passed" %}🟢{% elsif st == "unknown" %}🟡{% elsif st == "failed" %}🔴{% else %}⚫{% endif %}</td>
+        <td class="cell {{ st }}" title="{{ domain | escape }} — {{ date }}: {{ st | default: 'no data' }}{% if entry.redirectDomain %} → {{ entry.redirectDomain | escape }}{% endif %}{% if reason %} ({{ reason | escape }}){% endif %}">{% if st == "passed" %}🟢{% elsif st == "redirect" %}🔵{% elsif st == "unknown" %}🟡{% elsif st == "failed" %}🔴{% else %}⚫{% endif %}</td>
         {% endfor %}
       </tr>
       {% endfor %}

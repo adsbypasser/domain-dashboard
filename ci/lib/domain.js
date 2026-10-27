@@ -78,7 +78,7 @@ export function extractDomainsFromCommitMessage(commitMessage) {
  * @param {string} domain - Domain to extract root domain from
  * @returns {string|null} Root domain or null if invalid
  */
-function extractRootDomain(domain) {
+export function extractRootDomain(domain) {
   if (!isValidDomain(domain)) {
     return null;
   }

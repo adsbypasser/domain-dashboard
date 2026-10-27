@@ -189,6 +189,7 @@ export const CLOUDFLARE_ERROR_DESCRIPTIONS = {
  * Status icons for visual representation of domain check results
  */
 export const STATUS_ICONS = {
+  REDIRECT: "🔵",
   VALID: "✅",
   PLACEHOLDER: "⚠️",
   EMPTY_PAGE: "📄",

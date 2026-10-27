@@ -97,5 +97,6 @@ td.cell {
 }
 
 td.cell.passed  { background: #f0fff4; }
+td.cell.redirect { background: #eff6ff; }
 td.cell.unknown { background: #fffbf0; }
 td.cell.failed  { background: #fff5f5; }

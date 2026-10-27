@@ -19,12 +19,13 @@ const DATA_FILE = path.resolve(__dirname, "../_data/results.json");
 const MAX_DATES = 21;
 
 /**
- * Map a raw check-domains status string to passed/unknown/failed.
+ * Map a raw check-domains status string to a dashboard status.
  * @param {string} status
- * @returns {"passed"|"unknown"|"failed"}
+ * @returns {"passed"|"redirect"|"unknown"|"failed"}
  */
 function mapStatus(status) {
   if (!status) return "failed";
+  if (status === "REDIRECT") return "redirect";
   if (status === "VALID" || status === "PROTOCOL_FLIP_LOOP") return "passed";
   if (status === "EXPIRED" || status === "TIMEOUT") return "failed";
   return "unknown";
@@ -53,8 +54,12 @@ async function main() {
 
   // Build the run entry for today
   const runEntry = {};
-  for (const { domain, status } of raw) {
+  for (const { domain, status, redirectDomain, redirectUrl } of raw) {
     runEntry[domain] = { status: mapStatus(status), reason: status ?? null };
+    if (status === "REDIRECT") {
+      runEntry[domain].redirectDomain = redirectDomain ?? null;
+      runEntry[domain].redirectUrl = redirectUrl ?? null;
+    }
   }
 
   // Use only current run's domains (removed domains are dropped automatically)

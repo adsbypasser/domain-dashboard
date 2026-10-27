@@ -170,7 +170,7 @@ async function main() {
 
           if (!globalDebug) {
             // Print domain and result atomically on one line to avoid interleaving
-            console.log(`- ${domain} ${icon}`);
+            console.log(`- ${domain} ${icon}${result.redirectDomain ? ` → ${result.redirectDomain}` : ""}`);
           } else {
             if (result.status.startsWith("CLOUDFLARE_")) {
               const errorCode = result.status.split("_")[1];
@@ -181,6 +181,8 @@ async function main() {
               } else {
                 console.log(`${icon} ${result.status}`);
               }
+            } else if (result.status === "REDIRECT") {
+              console.log(`${icon} REDIRECT → ${result.redirectDomain}`);
             } else if (result.status === "SSL_ISSUE") {
               if (result.error && result.message) {
                 console.log(
@@ -267,7 +269,7 @@ async function main() {
           if (!groupedProblems[r.status]) {
             groupedProblems[r.status] = [];
           }
-          groupedProblems[r.status].push(r.domain);
+          groupedProblems[r.status].push(r.redirectDomain ? `${r.domain} → ${r.redirectDomain}` : r.domain);
         });
 
         // Display grouped problems

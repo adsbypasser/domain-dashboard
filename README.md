@@ -11,6 +11,7 @@ Domain Dashboard provides a centralized interface to view, and track the status 
 ## Features
 
 - View domain status (working, broken, needs update)
+- Cross-domain HTTP redirects appear in blue; hover over a result to see the destination domain. Redirects within the same root domain are checked normally. A redirect result records the move without checking the destination's availability.
 
 ## Related Projects
 
